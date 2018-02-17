@@ -41,14 +41,14 @@ function afterConnection() {
 }
 
 //here is the start function -we want this to execute AFTER database is connected 
-
+//choices can prolly be a loop 
 function start() {
     inquirer.prompt([
         {
             name: "productID",
             type: "list",
             message: "Please select a product ID for what you would like to buy.",
-            choices: ["1-Nintendo Switch", "2-Arctic Monkeys: AM", "3-Digital Delay Pedal", "4-Sweater Dres", "5-Plaid: Boyfriend Fit", "6-Gibson Les Paul Studio T", "7-Shimmer Pedal", "8-Scott Pilgrim Vs The World", "9-Embroidered Jacket", "10-bandana"]
+            choices: ["1-Nintendo Switch", "2-Arctic Monkeys: AM", "3-Digital Delay Pedal", "4-Sweater Dress", "5-Plaid: Boyfriend Fit", "6-Gibson Les Paul Studio T", "7-Shimmer Pedal", "8-Scott Pilgrim Vs The World", "9-Embroidered Jacket", "10-bandana"]
         },
 
         { 
@@ -68,9 +68,14 @@ function start() {
         console.log("Please confirm: You would like to purchase " + productQuantity + productID);
        let query = "SELECT product_name, price FROM products WHERE item_id = ? ";
        console.log(query);
-       connection.query(query, answers.productID, function(err, response){
-           if (err) throw err;
-           console.log(response[1].product_name);
+       connection.query(query, answers.productID, function(err, res){
+           for (let i = 0; i < res.length; i++) {
+               console.log(res[i].item_id + " | " + res[i].product_name + " | " + "$ " + res[i].price);
+               console.log("------------------------------------");
+           }
+           
+
+           
         //    console.log(
         //        "ProductID:  " + id +
         //        " || Product Quantity: " 
