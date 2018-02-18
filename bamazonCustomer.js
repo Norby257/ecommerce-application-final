@@ -31,17 +31,19 @@ connection.connect(function(err){
 });
 
 function afterConnection() {
-    connection.query("SELECT * FROM products", function(err, res){
+    connection.query("SELECT item_id, product_name, price FROM products", function(err, res){
         if (err) throw err;
-       console.log(res);
+        //  fixing row data packet output 
+       console.log(JSON.stringify(res, null, 4));
        start();
-       //keeping the close connection function for now
+       //   put other functions here 
+       //   keeping the close connection function for now
     //    connection.end();
     });
 }
 
-//here is the start function -we want this to execute AFTER database is connected 
-//choices can prolly be a loop 
+//  here is the start function -we want this to execute AFTER database is connected 
+//  choices can prolly be a loop 
 function start() {
     inquirer.prompt([
         {
@@ -55,13 +57,12 @@ function start() {
             name: "productQuantity",
             type: "input",
             message: "How many would you like?"
-        }
-        //confirm they want it /read terms and conditions 
-        //ask if they want anything else, or go to checkout        
+        }       
     ]).then(function(answers){
         console.log("nice choice!");
         //store user query in a var 
-        //and use that var
+        //and use that var//
+        //use a variable to store quantity * res[i].price 
         //later on, keep asking if they want anything else and then do a reduce function
         let productID = answers.productID;
         let productQuantity = answers.productQuantity;
@@ -70,20 +71,17 @@ function start() {
        console.log(query);
        connection.query(query, answers.productID, function(err, res){
            for (let i = 0; i < res.length; i++) {
+               if (answers.productQuantity > res[i].product_name) {
+                   console.log("Insufficient Quantity!");
+               } else {
                console.log(res[i].item_id + " | " + res[i].product_name + " | " + "$ " + res[i].price);
                console.log("------------------------------------");
+            }
            }
-           
-
-           
-        //    console.log(
-        //        "ProductID:  " + id +
-        //        " || Product Quantity: " 
-        //    );
        })
     });
 }
-
+//fix item_id being undefined and also at some point, close the connection
 //the following are being moved to admin.js file 
 // processOrder();
 // checkOut();
