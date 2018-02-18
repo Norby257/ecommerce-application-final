@@ -34,13 +34,12 @@ function afterConnection() {
     connection.query("SELECT item_id, product_name, price FROM products", function(err, res){
         if (err) throw err;
         //  fixing row data packet output 
-    //    console.log(JSON.stringify(res, null, 4));
         for (let i = 0; i < res.length; i++) {
             console.log("Item Id " + res[i].item_id + " Product " + res[i].product_name + " Price " + res[i].price );
         }
-       //   let's try this in a loop too - just to see if it works better, if yes I will do that.
        start();
-       //   put other functions here 
+       //   put other fns
+
        //   keeping the close connection function for now
     //    connection.end();
     });
@@ -64,29 +63,41 @@ function start() {
         }       
     ]).then(function(answers){
         console.log("nice choice!");
-        //store user query in a var 
-        //and use that var//
-        //use a variable to store quantity * res[i].price 
-        //later on, keep asking if they want anything else and then do a reduce function
         let productID = answers.productID;
         let productQuantity = answers.productQuantity;
-        console.log("Please confirm: You would like to purchase " + productQuantity + productID);
-       let query = "SELECT product_name, price FROM products WHERE item_id = ? ";
-       console.log(query);
+        console.log("Please confirm: You would like to purchase "  + productQuantity + " " + productID);
+       let query = "SELECT item_id, product_name, price FROM products WHERE item_id = ? ";
+    //    console.log(query);
        connection.query(query, answers.productID, function(err, res){
            for (let i = 0; i < res.length; i++) {
-               if (answers.productQuantity > res[i].product_name) {
-                   console.log("Insufficient Quantity!");
+               if (res[i].stock_quantity < productID) {
+                   console.log("Insufficient Quantity!, please select another item");
+                   start();
                } else {
                console.log(res[i].item_id + " | " + res[i].product_name + " | " + "$ " + res[i].price);
                console.log("------------------------------------");
+               let total = parseFloat(res[i].price) * productQuantity;
+               console.log("Your total is " + total);
+               processOrder();
             }
            }
        })
     });
 }
-//fix item_id being undefined and also at some point, close the connection
-//the following are being moved to admin.js file 
-// processOrder();
-// checkOut();
-// start();
+
+/* function processOrder(productQuantity, productID) {
+    connection.query("UPDATE products SET stock_quantity = ? WHERE item_id =?", [productQuantity, productID], function(err, res){
+        if (err) throw err;
+        console.log(res);
+
+    });
+
+
+}
+
+
+
+*/ 
+
+   
+//   start();
