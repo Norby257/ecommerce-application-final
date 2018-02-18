@@ -39,7 +39,6 @@ function afterConnection() {
         }
        start();
        //   put other fns
-
        //   keeping the close connection function for now
     //    connection.end();
     });
@@ -62,42 +61,43 @@ function start() {
             message: "How many would you like?"
         }       
     ]).then(function(answers){
-        console.log("nice choice!");
         let productID = answers.productID;
         let productQuantity = answers.productQuantity;
-        console.log("Please confirm: You would like to purchase "  + productQuantity + " " + productID);
-       let query = "SELECT item_id, product_name, price FROM products WHERE item_id = ? ";
+       let query = "SELECT item_id, product_name, stock_quantity, price FROM products WHERE item_id = ? ";
+       
     //    console.log(query);
        connection.query(query, answers.productID, function(err, res){
            for (let i = 0; i < res.length; i++) {
-               if (res[i].stock_quantity < productID) {
-                   console.log("Insufficient Quantity!, please select another item");
+
+               if (res[i].stock_quantity < productQuantity) {
+                   console.log("Insufficient Quantity! please select another item");
                    start();
                } else {
                console.log(res[i].item_id + " | " + res[i].product_name + " | " + "$ " + res[i].price);
                console.log("------------------------------------");
                let total = parseFloat(res[i].price) * productQuantity;
-               console.log("Your total is " + total);
-               processOrder();
+               console.log("Your total is $" + total);
+
+            //    connection.query("UPDATE products SET stock_quantity = ? WHERE item_id =?", [res[i].stock_quantity - productQuantity, productID], function(err, res){
+            //     if (err) throw err;
+            //     console.log(res.affectedRows + " record(s) updated");
+        
+            // });
+            
             }
            }
        })
     });
 }
 
-/* function processOrder(productQuantity, productID) {
-    connection.query("UPDATE products SET stock_quantity = ? WHERE item_id =?", [productQuantity, productID], function(err, res){
-        if (err) throw err;
-        console.log(res);
+//  function processOrder(productQuantity, productID, res) {
+//     connection.query("UPDATE products SET stock_quantity = ? WHERE item_id =?", [res.stock_quantity - productQuantity, productID], function(err, res){
+//         if (err) throw err;
+//         console.log(res.affectedRows + " record(s) updated");
 
-    });
+//     });
 
-
-}
-
+// }
 
 
-*/ 
-
-   
 //   start();
