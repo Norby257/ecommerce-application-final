@@ -2,16 +2,6 @@ require("dotenv").config();
 const inquirer = require('inquirer');
 const mySQL = require('mySQL');
 // const Admin = require('/.admin');
-
-// startApp();
-// promptUserForProudctId()
-// processOrder() 
-//condition here 
-//if sufficent, then checkout();
-//updateDatabaseQuantity()
-//else console.log(not enough) and go back to prompt user to productID
-//at the end, promptUser for productID
-
 //start create connection 
 
 var connection = mySQL.createConnection({
@@ -77,12 +67,14 @@ function start() {
                console.log("------------------------------------");
                let total = parseFloat(res[i].price) * productQuantity;
                console.log("Your total is $" + total);
-
-            //    connection.query("UPDATE products SET stock_quantity = ? WHERE item_id =?", [res[i].stock_quantity - productQuantity, productID], function(err, res){
-            //     if (err) throw err;
-            //     console.log(res.affectedRows + " record(s) updated");
+               connection.query("UPDATE products SET stock_quantity = ? WHERE item_id =?", [res[i].stock_quantity - productQuantity, res[i].item_id], function(err, res){
+                if (err) throw err;
+                console.log(res.affectedRows + " record(s) updated");
+                console.log("Thanks for shopping! Check out these items:")
+                //calling this here so user can keep purchasing
+                start();
         
-            // });
+            });
             
             }
            }
