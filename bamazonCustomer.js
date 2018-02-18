@@ -34,7 +34,11 @@ function afterConnection() {
     connection.query("SELECT item_id, product_name, price FROM products", function(err, res){
         if (err) throw err;
         //  fixing row data packet output 
-       console.log(JSON.stringify(res, null, 4));
+    //    console.log(JSON.stringify(res, null, 4));
+        for (let i = 0; i < res.length; i++) {
+            console.log("Item Id " + res[i].item_id + " Product " + res[i].product_name + " Price " + res[i].price );
+        }
+       //   let's try this in a loop too - just to see if it works better, if yes I will do that.
        start();
        //   put other functions here 
        //   keeping the close connection function for now
