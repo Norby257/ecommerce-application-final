@@ -14,13 +14,13 @@
 
 ### The application starts by showing a list of available products and their corresponding ID's. Inquirer was used so that customers can pick from a list of options. From there, the applciation prompts customers for the quantity. 
 
-![Start page - Customer] (../images/customer_menu_options.png)
+![Start page - Customer](/images/customer_menu_options.png)
 
-![Item Quantity] (../images/product_quant.png)
+![Item Quantity](/images/product_quant.png)
 
-![Insufficient Quantity] (../images/isf_quant.png)
+![Insufficient Quantity](/images/isf_quant.png)
 
-![Customer Total] (../images/customer_total.png)
+![Customer Total](/images/customer_total.png)
 
 
 
