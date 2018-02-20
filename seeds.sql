@@ -57,3 +57,39 @@ VALUES("Embroidered Jacket", "Womens' clothing", 55.00, 120);
 
 INSERT INTO products(product_name, department_name, price, stock_quantity)
 VALUES("Bandana", "Accessories", 2.50, 120);
+
+--testing out an update statement 
+UPDATE products
+SET stock_quantity =  5 
+WHERE item_id = 3; 
+
+
+SELECT * FROM products;  
+
+-- table for supervisor view
+ 
+ CREATE TABLE departments (
+     department_id INTEGER(10) NOT NULL AUTO_INCREMENT,
+     department_name VARCHAR(55) NOT NULL, 
+     over_head_costs INTEGER(10) NOT NULL,
+    PRIMARY KEY(department_id)
+
+
+ );
+
+ INSERT INTO departments (department_name, over_head_costs) 
+ VALUES ("Electronics", 6000);
+
+
+ INSERT INTO departments(department_name, over_head_costs)
+ VALUES ("Digital Music", 3000);
+
+
+ INSERT INTO departments(department_name, over_head_costs)
+ VALUES("Digital Movies", 2000);
+
+ INSERT INTO departments(department_name, over_head_costs)
+ VALUES("Musical Instruments", 9000);
+
+ INSERT INTO departments(department_name, over_head_costs)
+ VALUES("Womens' Clothing", 8000);
