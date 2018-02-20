@@ -7,7 +7,7 @@ var connection = mySQL.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "$n0wD4z*^#",
+    password: "root",
     database: "bamazonDB"
 });
 
@@ -90,3 +90,4 @@ function viewLowInventory() {
 }
 
 
+ 

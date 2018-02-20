@@ -9,7 +9,7 @@ var connection = mySQL.createConnection({
     port: 3306,
 
     user: "root",
-    password: "$n0wD4z*^#",
+    password: "root",
     database: "bamazonDB"
 });
 
@@ -25,11 +25,9 @@ function afterConnection() {
         if (err) throw err;
         //  fixing row data packet output 
         for (let i = 0; i < res.length; i++) {
-            console.log("Item Id " + res[i].item_id + " Product " + res[i].product_name + " Price " + res[i].price );
+            console.log("Item Id " + res[i].item_id + " Product " + res[i].product_name + " Price $" + res[i].price );
         }
        start();
-       //   put other fns
-       //   keeping the close connection function for now
     //    connection.end();
     });
 }
@@ -82,14 +80,3 @@ function start() {
     });
 }
 
-//  function processOrder(productQuantity, productID, res) {
-//     connection.query("UPDATE products SET stock_quantity = ? WHERE item_id =?", [res.stock_quantity - productQuantity, productID], function(err, res){
-//         if (err) throw err;
-//         console.log(res.affectedRows + " record(s) updated");
-
-//     });
-
-// }
-
-
-//   start();

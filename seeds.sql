@@ -2,9 +2,7 @@ DROP DATABASE IF EXISTS bamazonDB;
 
 CREATE DATABASE bamazonDB;
 
-
 USE bamazonDB;
-
 
 CREATE TABLE products (
      item_id INTEGER(10) NOT NULL AUTO_INCREMENT,
@@ -54,15 +52,8 @@ VALUES("Plaid - boyfriend fit", "Womens' clothing", 25.00, 100);
 INSERT INTO products(product_name, department_name, price, stock_quantity)
 VALUES("Embroidered Jacket", "Womens' clothing", 55.00, 120);
 
-
 INSERT INTO products(product_name, department_name, price, stock_quantity)
 VALUES("Bandana", "Accessories", 2.50, 120);
-
---testing out an update statement 
-UPDATE products
-SET stock_quantity =  5 
-WHERE item_id = 3; 
-
 
 SELECT * FROM products;  
 
