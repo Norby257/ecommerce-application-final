@@ -43,11 +43,6 @@ VALUES("Gibson Les Paul Studio T", "Musical Instruments", 750.00, 15);
 INSERT INTO products(product_name, department_name, price, stock_quantity)
 VALUES("Scott Pilgrim VS the World", "Digital Movies", 19.00, 15);
 
-INSERT INTO products (product_name, department_name, price, stock_quantity) 
-VALUES ("Arctic Mokeys: AM", "Digital Music", 12.99, 1000);
-
-INSERT INTO products(product_name, department_name, price, stock_quantity)
-VALUES("Plaid - boyfriend fit", "Womens' clothing", 25.00, 100);
 
 INSERT INTO products(product_name, department_name, price, stock_quantity)
 VALUES("Embroidered Jacket", "Womens' clothing", 55.00, 120);
