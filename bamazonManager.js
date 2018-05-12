@@ -85,7 +85,6 @@ function viewProductsForSale() {
   })
 }
 
-//  not displaying output nor errors  - somthing is off
 function viewLowInventory() {
   connection.query("SELECT * FROM products WHERE stock_quantity < 10", function(
     err,
